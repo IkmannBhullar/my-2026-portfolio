@@ -16,7 +16,6 @@ export function Projects() {
             description={item.description}
             header={item.header}
             icon={item.icon}
-            // This logic makes the larger items span 2 columns for that "Bento" look
             className={i === 3 || i === 6 ? "md:col-span-2" : ""}
           />
         ))}
@@ -25,35 +24,33 @@ export function Projects() {
   );
 }
 
-// Placeholder Data - You can replace this with your real projects later!
-// "header" is currently a colored box, but we can swap it for <img> tags later.
-const Skeleton = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-900 to-neutral-800" />
+const Skeleton = ({ color }: { color: string }) => (
+  <div className={`flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br ${color}`} />
 );
 
 const items = [
   {
-    title: "AI SaaS Platform",
-    description: "A full-stack AI platform for contractors using Next.js and OpenAI.",
-    header: <Skeleton />,
-    icon: <span className="text-2xl">🤖</span>, // Simple emoji icon for now
+    title: "Swap Spot | E-Commerce",
+    description: "Full-stack MERN platform with Redux state management and secure JWT authentication.",
+    header: <Skeleton color="from-orange-500 to-red-500" />,
+    icon: <span className="text-2xl">🛍️</span>,
   },
   {
-    title: "Real Estate Dashboard",
-    description: "Interactive dashboard for tracking property values and trends.",
-    header: <Skeleton />,
-    icon: <span className="text-2xl">🏠</span>,
+    title: "GreenBite | Recipe Platform",
+    description: "Responsive React app optimizing API latency by 60% and increasing user engagement.",
+    header: <Skeleton color="from-green-500 to-emerald-500" />,
+    icon: <span className="text-2xl">🥗</span>,
   },
   {
-    title: "E-Commerce API",
-    description: "A robust backend built with Node.js and PostgreSQL.",
-    header: <Skeleton />,
-    icon: <span className="text-2xl">🛒</span>,
+    title: "LiteMusic | Streaming App",
+    description: "Spotify-inspired player using Vite, Framer Motion, and the Deezer API.",
+    header: <Skeleton color="from-purple-500 to-indigo-500" />,
+    icon: <span className="text-2xl">🎵</span>,
   },
   {
-    title: "Portfolio 2026",
-    description: "The website you are looking at right now! Built with Aceternity UI.",
-    header: <Skeleton />,
-    icon: <span className="text-2xl">🎨</span>,
+    title: "CityCode.AI (Coming Soon)",
+    description: "My current founder project: An AI SaaS platform for contractors and builders.",
+    header: <Skeleton color="from-blue-500 to-cyan-500" />,
+    icon: <span className="text-2xl">🏗️</span>,
   },
 ];
