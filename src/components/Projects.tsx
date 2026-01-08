@@ -32,19 +32,19 @@ const items = [
   {
     title: "Swap Spot | E-Commerce",
     description: "Full-stack MERN platform with Redux state management and secure JWT authentication.",
-    header: <Skeleton color="from-orange-500 to-red-500" />,
+    header: <img src="/SS-main.png" alt="Swap Spot"  />,
     icon: <span className="text-2xl">🛍️</span>,
   },
   {
     title: "GreenBite | Recipe Platform",
     description: "Responsive React app optimizing API latency by 60% and increasing user engagement.",
-    header: <Skeleton color="from-green-500 to-emerald-500" />,
+    header: <img src="/gb-main.png" alt="GreenBite" />,
     icon: <span className="text-2xl">🥗</span>,
   },
   {
     title: "LiteMusic | Streaming App",
     description: "Spotify-inspired player using Vite, Framer Motion, and the Deezer API.",
-    header: <Skeleton color="from-purple-500 to-indigo-500" />,
+    header: <img src="/lm-main.png" alt="LiteMusic" />,
     icon: <span className="text-2xl">🎵</span>,
   },
   {
@@ -54,3 +54,4 @@ const items = [
     icon: <span className="text-2xl">🏗️</span>,
   },
 ];
+

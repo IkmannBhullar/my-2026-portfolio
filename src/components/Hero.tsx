@@ -1,9 +1,20 @@
 "use client";
 import React from "react";
 import { Spotlight } from "./ui/Spotlight";
-import ProfileCard from "./ui/ProfileCard"; // Import the new component
+import ProfileCard from "./ui/ProfileCard";
+import { ArrowDown } from "lucide-react"; // Import the icon
 
 export function Hero() {
+  
+  // Function to handle the smooth scroll
+  const scrollToNext = () => {
+    // This targets the specific "about" ID we set up in your page.tsx
+    const nextSection = document.getElementById("about");
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="min-h-screen w-full flex bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       
@@ -34,22 +45,32 @@ export function Hero() {
           </div>
         </div>
 
-        {/* RIGHT SIDE: The Profile Card */}
+        {/* RIGHT SIDE: Profile Card */}
         <div className="w-full md:w-1/2 flex items-center justify-center h-[500px]">
           <ProfileCard 
             name="Ikmann Bhullar"
             title="Full Stack Developer"
             handle="ikmann"
             status="Open for work"
-            avatarUrl="/profile-cutout.png" // See note below about the image!
-            miniAvatarUrl="/profile.png"     // Small circle image
+            avatarUrl="/profile-cutout.png" 
+            miniAvatarUrl="/profile.png"     
             enableTilt={true}
-            behindGlowColor="#3b82f6"        // Blue glow to match your button
+            behindGlowColor="#3b82f6"       
             showUserInfo={true}
           />
         </div>
 
       </div>
+
+      {/* FLOATING ARROW: Placed absolutely at the bottom center */}
+      <div 
+        onClick={scrollToNext}
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer z-20 animate-bounce"
+        aria-label="Scroll to next section"
+      >
+        <ArrowDown className="w-8 h-8 text-white/50 hover:text-white transition-colors duration-300" />
+      </div>
+
     </div>
   );
 }
