@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 
-// Define the shape of our nav items
 interface NavItem {
   id: number;
   name: string;
@@ -27,7 +26,6 @@ const navItems: NavItem[] = [
     id: 1,
     name: "Home",
     designation: "Go to top",
-    // Smaller icon on laptop (w-5), larger on desktop (lg:w-6)
     icon: <Home className="w-5 h-5 lg:w-6 lg:h-6" />,
     target: "home",
   },
@@ -109,11 +107,10 @@ const LeftSidebar = () => {
   };
 
   return (
-    // RESPONSIVE CONTAINER:
-    // 1. gap-3 on laptops, gap-6 on large screens
-    // 2. p-2 on laptops, p-4 on large screens
-    // 3. left-4 on laptops, left-6 on large screens
-    <div className="fixed left-4 lg:left-6 top-1/2 -translate-y-1/2 z-[500] hidden md:flex flex-col gap-3 lg:gap-6 bg-black/50 border border-white/10 p-2 lg:p-4 rounded-full shadow-2xl backdrop-blur-xl transition-all duration-300">
+    // UPDATED POSITIONING:
+    // Changed 'left-4' to 'right-4'
+    // Changed 'lg:left-6' to 'lg:right-6'
+    <div className="fixed right-4 lg:right-6 top-1/2 -translate-y-1/2 z-[500] hidden md:flex flex-col gap-3 lg:gap-6 bg-black/50 border border-white/10 p-2 lg:p-4 rounded-full shadow-2xl backdrop-blur-xl transition-all duration-300">
       {navItems.map((item) => {
         const content = (
           <AnimatedTooltip

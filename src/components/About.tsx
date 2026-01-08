@@ -1,65 +1,124 @@
 "use client";
 import React from "react";
 import ScrollFloat from "@/components/ui/ScrollFloat";
+import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
+import { ArrowDown } from "lucide-react";
+
+// Reusable Code Window Component
+const CodeWindow = ({ code, language = "typescript" }: { code: string; language?: string }) => (
+  <div className="h-full w-full bg-[#1e1e1e] rounded-xl overflow-hidden border border-white/10 shadow-2xl flex flex-col">
+    <div className="bg-[#2d2d2d] px-4 py-2 flex items-center gap-2 border-b border-white/5">
+      <div className="w-3 h-3 rounded-full bg-red-500" />
+      <div className="w-3 h-3 rounded-full bg-yellow-500" />
+      <div className="w-3 h-3 rounded-full bg-green-500" />
+      <span className="ml-2 text-xs text-gray-400 font-mono">{language}</span>
+    </div>
+    <div className="p-4 font-mono text-sm text-gray-300 overflow-auto">
+      <pre className="whitespace-pre-wrap">
+        <code>{code}</code>
+      </pre>
+    </div>
+  </div>
+);
+
+const aboutContent = [
+  {
+    title: "The Engineer",
+    description:
+      "I’m a Software Engineering student graduating in January 2026, with a strong focus on backend and full-stack development. I enjoy building systems that are scalable, reliable, and actually useful — from REST APIs and databases to modern web interfaces.",
+    content: (
+      <CodeWindow 
+        code={`// Backend Logic
+app.get('/api/status', (req, res) => {
+  const systemHealth = checkHealth();
+  
+  if (systemHealth.isStable) {
+    res.status(200).json({ 
+      status: 'Online', 
+      uptime: process.uptime() 
+    });
+  } else {
+    // Automated alerting
+    alertAdmin(systemHealth.errors);
+  }
+});`} 
+      />
+    ),
+  },
+  {
+    title: "The Builder",
+    description:
+      "Outside of coursework, I regularly build independent projects to explore real-world engineering challenges. I don't just write code; I build products that solve actual problems.",
+    content: (
+      <div className="h-full w-full flex items-center justify-center bg-neutral-900 rounded-xl border border-white/10 overflow-hidden relative">
+        <img 
+            src="/coding-setup.png" 
+            alt="My Workspace" 
+            className="object-cover w-full h-full opacity-80 hover:opacity-100 transition-opacity" 
+        />
+
+      </div>
+    ),
+  },
+  {
+    title: "The Craftsman",
+    description:
+      "I care about clean code, maintainability, and understanding why systems are built the way they are. For me, software isn't just about making it work—it's about making it work efficiently and sustainably.",
+    content: (
+        <img 
+            src="/craftsman.png" 
+            alt="My Workspace" 
+            className="object-cover w-full h-full opacity-80 hover:opacity-100 transition-opacity" 
+        />
+    ),
+  },
+];
 
 export function About() {
+  
+  const scrollToWork = () => {
+    const nextSection = document.getElementById("work");
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="relative w-full py-20 bg-black text-white overflow-hidden">
+    // REMOVED 'overflow-hidden' from here to fix scroll trap
+    <section className="relative w-full bg-black text-white" id="about">
       
-      {/* Background Grid Pattern (Optional subtle texture) */}
-      <div className="absolute inset-0 h-full w-full bg-grid-white/[0.03] pointer-events-none" />
+      {/* 1. Title Section */}
+      <div className="pt-20 pb-10 container mx-auto px-6 flex flex-col items-center justify-center text-center">
+        <ScrollFloat 
+          animationDuration={1} 
+          ease="back.inOut(2)"
+          scrollStart="center bottom+=50%"
+          scrollEnd="bottom bottom-=40%"
+          stagger={0.03}
+          containerClassName="mt-10 mb-10"
+          textClassName="text-4xl md:text-6xl text-blue-500 font-bold"
+        >
+          About Me
+        </ScrollFloat>
+      </div>
 
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
-        
-        {/* 1. The Scroll Float Headline */}
-        <div className="mb-16">
-          <ScrollFloat 
-            animationDuration={1} 
-            ease="back.inOut(2)"
-            scrollStart="top bottom"
-            scrollEnd="bottom center"
-            stagger={0.03}
-          >
-            About Me
-          </ScrollFloat>
-        </div>
+      {/* 2. The Sticky Scroll Section */}
+      {/* Added mb-20 to give space before the arrow */}
+      <div className="w-full mb-20">
+        <StickyScroll content={aboutContent} />
+      </div>
 
-        {/* 2. Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          
-          {/* Column 1: The Narrative */}
-          <div className="space-y-6 text-lg text-neutral-300 leading-relaxed font-light">
-            <p>
-              I am a <span className="text-white font-semibold">Software Engineer</span> with a passion for building full-stack applications that solve real-world problems. 
-            </p>
-            <p>
-              Currently, I am the founder of <span className="text-blue-400 font-semibold">CityCode.AI</span>, a SaaS platform leveraging AI to help contractors and builders navigate complex zoning regulations instantly.
-            </p>
-            <p>
-              My coding philosophy is simple: write clean code, design intuitive interfaces, and never stop learning. When I&apos;m not shipping features, you can find me exploring new tech stacks or refining my design skills.
-            </p>
-          </div>
-
-          {/* Column 2: Quick Stats / Highlights */}
-          <div className="grid grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-neutral-900/50 border border-white/10 hover:border-white/20 transition-colors">
-              <h3 className="text-4xl font-bold text-blue-500 mb-2">3+</h3>
-              <p className="text-sm text-gray-400 uppercase tracking-wider">Years Experience</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-neutral-900/50 border border-white/10 hover:border-white/20 transition-colors">
-              <h3 className="text-4xl font-bold text-purple-500 mb-2">10+</h3>
-              <p className="text-sm text-gray-400 uppercase tracking-wider">Projects Shipped</p>
-            </div>
-            <div className="col-span-2 p-6 rounded-2xl bg-neutral-900/50 border border-white/10 hover:border-white/20 transition-colors">
-              <h3 className="text-xl font-bold text-white mb-2">Current Focus</h3>
-              <p className="text-gray-400">
-                Scaling AI-driven SaaS applications and mastering Next.js 14 architecture.
-              </p>
-            </div>
-          </div>
-
+      {/* 3. The Down Arrow */}
+      <div className="w-full flex justify-center pb-10">
+        <div 
+          onClick={scrollToWork}
+          className="cursor-pointer animate-bounce p-2 rounded-full hover:bg-white/10 transition-colors"
+          aria-label="Scroll to Work section"
+        >
+          <ArrowDown className="w-8 h-8 text-white/50 hover:text-white transition-colors duration-300" />
         </div>
       </div>
+
     </section>
   );
 }
