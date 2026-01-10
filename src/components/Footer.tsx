@@ -20,7 +20,7 @@ export function Footer() {
         {/* Right Side: Socials */}
         <div className="flex gap-4">
           <a 
-            href="https://github.com/yourusername" 
+            href="https://github.com/IkmannBhullar" 
             target="_blank" 
             rel="noreferrer" 
             className="hover:text-white transition-colors"
@@ -28,7 +28,7 @@ export function Footer() {
             <Github className="w-4 h-4" />
           </a>
           <a 
-            href="https://linkedin.com/in/yourusername" 
+            href="https://linkedin.com/in/ikmannbhullar" 
             target="_blank" 
             rel="noreferrer" 
             className="hover:text-blue-400 transition-colors"

@@ -15,23 +15,34 @@ export function Globe({ className }: { className?: string }) {
       width: 600 * 2,
       height: 600 * 2,
       phi: 0,
-      theta: 0,
+      theta: 0.25, // TILT: View from slightly above (0.25 radians) to see Seattle better
       dark: 1,
       diffuse: 1.2,
       mapSamples: 16000,
       mapBrightness: 6,
-      baseColor: [0.3, 0.3, 0.3],
-      markerColor: [0.1, 0.8, 1], // Cyan markers
-      glowColor: [0.1, 0.1, 0.1], // Subtle glow
+      baseColor: [0.1, 0.1, 0.1], // Darker gray base for better contrast
+      markerColor: [0.1, 0.8, 1], // Default Cyan for other cities
+      glowColor: [0.1, 0.1, 0.3], // Deep Purple/Blue glow to match your site
       markers: [
-        // SEATTLE (Lat: 47.6062, Lon: -122.3321)
-        { location: [47.6062, -122.3321], size: 0.1 },
+        // --- SEATTLE (Home Base) ---
+        // We stack two markers to create a "glowing core" effect
+        { location: [47.6062, -122.3321], size: 0.08 }, // Inner Core
+        { location: [47.6062, -122.3321], size: 0.15 }, // Outer Glow
+
+        // --- THE NETWORK (Other Tech Hubs) ---
+        // Adding these makes the globe look "connected" and populated
+        { location: [37.7749, -122.4194], size: 0.05 }, // San Francisco
+        { location: [40.7128, -74.0060], size: 0.05 },  // New York
+        { location: [51.5074, -0.1278], size: 0.05 },   // London
+        { location: [35.6762, 139.6503], size: 0.05 },  // Tokyo
+        { location: [1.3521, 103.8198], size: 0.05 },   // Singapore
+        { location: [-33.8688, 151.2093], size: 0.05 }, // Sydney
       ],
       onRender: (state) => {
-        // Called on every animation frame.
-        // `state` will be an empty object, return updated params.
+        // ROTATION SPEED
+        // Reduced from 0.005 to 0.003 for a more majestic, slow spin
         state.phi = phi;
-        phi += 0.005; // Speed of rotation
+        phi += 0.003; 
       },
     });
 
