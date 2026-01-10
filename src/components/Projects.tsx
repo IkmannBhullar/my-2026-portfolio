@@ -87,7 +87,7 @@ export function Projects() {
       </div>
 
       {/* The Chroma Grid */}
-      <div className="container mx-auto px-4 h-[800px] relative z-10 flex justify-center">
+      <div className="container mx-auto px-4 min-h-[500px] mb-20 relative z-10 flex justify-center">
         <ChromaGrid 
             items={projects} 
             radius={300} 

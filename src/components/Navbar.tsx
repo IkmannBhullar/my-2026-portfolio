@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 
+// Define the shape of our nav items
 interface NavItem {
   id: number;
   name: string;
@@ -25,52 +26,53 @@ const navItems: NavItem[] = [
   {
     id: 1,
     name: "Home",
-    designation: "Go to top",
-    icon: <Home className="w-5 h-5 lg:w-6 lg:h-6" />,
+    designation: "Top",
+    icon: <Home className="w-5 h-5" />,
     target: "home",
   },
   {
     id: 2,
     name: "About",
-    designation: "About Me",
-    icon: <User className="w-5 h-5 lg:w-6 lg:h-6" />,
+    designation: "Bio",
+    icon: <User className="w-5 h-5" />,
     target: "about",
   },
   {
     id: 3,
     name: "Work",
-    designation: "Recent Projects",
-    icon: <FolderGit2 className="w-5 h-5 lg:w-6 lg:h-6" />,
+    designation: "Projects",
+    icon: <FolderGit2 className="w-5 h-5" />,
     target: "work",
   },
   {
     id: 4,
     name: "Skills",
-    designation: "My Stack",
-    icon: <Hammer className="w-5 h-5 lg:w-6 lg:h-6" />,
+    designation: "Stack",
+    icon: <Hammer className="w-5 h-5" />,
     target: "skills",
   },
   {
     id: 5,
     name: "Contact",
-    designation: "Get in touch",
-    icon: <Mail className="w-5 h-5 lg:w-6 lg:h-6" />,
+    designation: "Email",
+    icon: <Mail className="w-5 h-5" />,
     target: "contact",
   },
   {
     id: 6,
     name: "Resume",
-    designation: "Download CV",
-    icon: <FileText className="w-5 h-5 lg:w-6 lg:h-6" />,
+    designation: "PDF",
+    icon: <FileText className="w-5 h-5" />,
     target: "resume",
     isDownload: true,
     href: "/resume.pdf",
   },
 ];
 
-const LeftSidebar = () => {
+const Navbar = () => {
   const [activeId, setActiveId] = useState("home");
 
+  // Observer to track which section is currently active
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -107,35 +109,47 @@ const LeftSidebar = () => {
   };
 
   return (
-    // UPDATED POSITIONING:
-    // Changed 'left-4' to 'right-4'
-    // Changed 'lg:left-6' to 'lg:right-6'
-    <div className="fixed right-4 lg:right-6 top-1/2 -translate-y-1/2 z-[500] hidden md:flex flex-col gap-3 lg:gap-6 bg-black/50 border border-white/10 p-2 lg:p-4 rounded-full shadow-2xl backdrop-blur-xl transition-all duration-300">
+    // CONTAINER POSITIONING:
+    // fixed top-6: Pins it to the top
+    // left-1/2 -translate-x-1/2: Centers it perfectly
+    // flex-row: Makes items sit side-by-side
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[500] hidden md:flex flex-row gap-4 bg-black/50 border border-white/10 px-6 py-3 rounded-full shadow-2xl backdrop-blur-xl transition-all duration-300">
+      
       {navItems.map((item) => {
-        const content = (
-          <AnimatedTooltip
-            items={[
-              {
-                id: item.id,
-                name: item.name,
-                designation: item.designation,
-              },
-            ]}
-          >
-            {item.icon}
-          </AnimatedTooltip>
+        // Highlight logic
+        const isActive = activeId === item.target;
+        
+        // Wrap the icon in a div that controls color based on active state
+        const IconWrapper = (
+          <div className={`${isActive ? "text-white bg-white/10 rounded-full" : "text-white/50 hover:text-white"}`}>
+             <AnimatedTooltip
+                items={[
+                  {
+                    id: item.id,
+                    name: item.name,
+                    designation: item.designation,
+                  },
+                ]}
+              >
+                {/* Ensure Icon size is consistent */}
+                <div className="w-5 h-5 flex items-center justify-center">
+                    {item.icon}
+                </div>
+              </AnimatedTooltip>
+          </div>
         );
 
+        // Render as Link (Resume) or Div (Scroll)
         if (item.isDownload) {
           return (
             <a
               key={item.id}
               href={item.href}
               download
-              className="cursor-pointer text-white/50 hover:text-white transition-colors duration-300"
               aria-label="Download Resume"
+              className="flex items-center justify-center"
             >
-              {content}
+              {IconWrapper}
             </a>
           );
         }
@@ -144,11 +158,9 @@ const LeftSidebar = () => {
           <div
             key={item.id}
             onClick={() => scrollTo(item.target)}
-            className={`cursor-pointer transition-colors duration-300 ${
-              activeId === item.target ? "text-purple-500" : "text-white/50 hover:text-white"
-            }`}
+            className="flex items-center justify-center cursor-pointer"
           >
-            {content}
+            {IconWrapper}
           </div>
         );
       })}
@@ -156,4 +168,4 @@ const LeftSidebar = () => {
   );
 };
 
-export default LeftSidebar;
+export default Navbar;

@@ -15,6 +15,13 @@ export function Hero() {
     }
   };
 
+  const scrollToWork = () => {
+  const workSection = document.getElementById("work");
+  if (workSection) {
+    workSection.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
   return (
     <div className="min-h-screen w-full flex bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       
@@ -38,12 +45,14 @@ export function Hero() {
             Ready to build engaging digital experiences.
           </p>
 
-          <div className="mt-8">
-            <button className="px-8 py-2 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200"
-            >
+        <div className="mt-8">
+            <button 
+              onClick={scrollToWork} // <--- ADD THIS
+              className="px-8 py-2 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200"
+              >
               View My Work 
             </button>
-          </div>
+        </div>
         </div>
 
         {/* RIGHT SIDE: Profile Card */}
